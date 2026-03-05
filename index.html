@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>企业员工考勤 · 实际小程序原型图</title>
+  <style>
+    :root {
+      --brand: #0052D9;
+      --brand-light: #E8F0FD;
+      --bg: #F0F2F7;
+      --card: #FFFFFF;
+      --text1: #0D0D0D;
+      --text2: #4B4B4B;
+      --text3: #9A9A9A;
+      --border: #DDE1EA;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', 'Inter', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .header {
+      background: var(--brand);
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,82,217,0.3);
+    }
+    .header-logo { display: flex; align-items: center; gap: 12px; }
+    .header-logo-icon {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .header-title { color: white; font-size: 18px; font-weight: 700; }
+    .header-subtitle { color: rgba(255,255,255,0.65); font-size: 12px; margin-top: 1px; }
+    .header-badge {
+      background: rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.9);
+      font-size: 12px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .main { max-width: 1600px; margin: 0 auto; padding: 36px 40px 60px; }
+    .section { margin-bottom: 52px; }
+    .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+    .section-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .section-icon-employee { background: linear-gradient(135deg, #0052D9, #1E6EFF); }
+    .section-icon-admin { background: linear-gradient(135deg, #00A870, #00C48C); }
+    .section-icon-other { background: linear-gradient(135deg, #ED7B2F, #F5A623); }
+    .section-name { font-size: 20px; font-weight: 700; color: var(--text1); }
+    .section-desc { font-size: 13px; color: var(--text3); margin-top: 2px; }
+    .section-divider { flex: 1; height: 1px; background: var(--border); margin-left: 8px; }
+    .page-grid { display: flex; flex-wrap: wrap; gap: 32px; }
+    .phone-frame-wrapper { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .phone-frame {
+      width: 393px; height: 852px;
+      border-radius: 54px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 0 0 1.5px #C8CAD0, 0 0 0 10px #1C1C1E, 0 0 0 11.5px #3A3A3C, 0 20px 60px rgba(0,0,0,0.4);
+      background: #1C1C1E;
+      flex-shrink: 0;
+    }
+    .phone-frame iframe {
+      width: 393px; height: 852px;
+      border: none;
+      display: block;
+      border-radius: 44px;
+      pointer-events: none;
+    }
+    .dynamic-island {
+      position: absolute;
+      top: 12px; left: 50%;
+      transform: translateX(-50%);
+      width: 120px; height: 34px;
+      background: #1C1C1E;
+      border-radius: 20px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .phone-btn-left { position: absolute; left: -12px; top: 140px; width: 4px; height: 32px; background: #3A3A3C; border-radius: 2px; }
+    .phone-btn-left-2 { position: absolute; left: -12px; top: 192px; width: 4px; height: 64px; background: #3A3A3C; border-radius: 2px; }
+    .phone-btn-left-3 { position: absolute; left: -12px; top: 270px; width: 4px; height: 64px; background: #3A3A3C; border-radius: 2px; }
+    .phone-btn-right { position: absolute; right: -12px; top: 200px; width: 4px; height: 80px; background: #3A3A3C; border-radius: 2px; }
+    .page-label { text-align: center; }
+    .page-label-name { font-size: 14px; font-weight: 600; color: var(--text1); }
+    .page-label-desc { font-size: 12px; color: var(--text3); margin-top: 3px; }
+    .page-label-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 4px; margin-top: 4px; font-weight: 500; }
+    .badge-employee { background: #E8F0FD; color: #0052D9; }
+    .badge-admin { background: #E8F7F2; color: #00A870; }
+    .badge-other { background: #FEF0E1; color: #ED7B2F; }
+    .scale-note {
+      background: rgba(0,82,217,0.06);
+      border: 1px solid rgba(0,82,217,0.15);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 12px;
+      color: var(--brand);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      max-width: fit-content;
+    }
+    .footer { text-align: center; padding: 32px 0 48px; color: var(--text3); font-size: 12px; border-top: 1px solid var(--border); margin-top: 8px; }
+    @media (max-width: 1400px) {
+      .phone-frame, .phone-frame iframe { width: 340px; height: 736px; }
+      .phone-frame { border-radius: 48px; }
+      .phone-frame iframe { transform: scale(0.8655); transform-origin: top left; width: 393px; height: 852px; }
+    }
+    @media (max-width: 900px) { .main { padding: 24px 20px 48px; } .page-grid { gap: 24px; } }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-logo">
+      <div class="header-logo-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <circle cx="11" cy="8" r="4" fill="white" fill-opacity="0.9"/>
+          <path d="M3 20C3 15.6 6.7 12 11 12C15.3 12 19 15.6 19 20" stroke="white" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.9"/>
+        </svg>
+      </div>
+      <div>
+        <div class="header-title">企业员工考勤小程序</div>
+        <div class="header-subtitle">实际小程序原型图 · 与当前界面一致</div>
+      </div>
+    </div>
+    <span class="header-badge">22 个页面 · iPhone 15 Pro 规格</span>
+  </header>
+
+  <main class="main">
+    <div class="scale-note">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#0052D9" stroke-width="1.4" fill="none"/><path d="M8 7V11M8 5V5.1" stroke="#0052D9" stroke-width="1.8" stroke-linecap="round"/></svg>
+      界面尺寸 393×852 pt，基于当前小程序各页面 WXML 还原
+    </div>
+
+    <!-- ==================== 员工端 ==================== -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon section-icon-employee">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="4" fill="white" fill-opacity="0.9"/><path d="M2 18C2 14.7 5.6 12 10 12C14.4 12 18 14.7 18 18" stroke="white" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.9"/></svg>
+        </div>
+        <div>
+          <div class="section-name">员工端页面</div>
+          <div class="section-desc">登录、首页打卡、考勤、个人中心、加入/创建企业、请假</div>
+        </div>
+        <div class="section-divider"></div>
+      </div>
+      <div class="page-grid">
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="login.html" title="登录" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">登录</div><div class="page-label-desc">微信一键授权</div><span class="page-label-badge badge-employee">员工端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="home.html" title="首页" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">首页</div><div class="page-label-desc">签到/签退 · 定位</div><span class="page-label-badge badge-employee">员工端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="attendance.html" title="我的考勤" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">我的考勤</div><div class="page-label-desc">历史记录 · 统计</div><span class="page-label-badge badge-employee">员工端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="profile.html" title="个人中心" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">个人中心</div><div class="page-label-desc">头像 · 企业 · 人脸</div><span class="page-label-badge badge-employee">员工端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="join-company.html" title="加入企业" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">加入企业</div><div class="page-label-desc">邀请码 / 扫码</div><span class="page-label-badge badge-employee">员工端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="create-company.html" title="创建企业" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">创建企业</div><div class="page-label-desc">企业信息 · 考勤配置</div><span class="page-label-badge badge-employee">员工端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="leave-request.html" title="请假" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">请假</div><div class="page-label-desc">申请 · 记录</div><span class="page-label-badge badge-employee">员工端</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 管理端 ==================== -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon section-icon-admin">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="5" width="16" height="12" rx="2" stroke="white" stroke-width="1.8" fill="none"/><path d="M7 5V4C7 3 7.9 2 9 2H11C12.1 2 13 3 13 4V5" stroke="white" stroke-width="1.8" fill="none"/><path d="M2 10H18" stroke="white" stroke-width="1.4"/><circle cx="10" cy="10" r="2" fill="white"/></svg>
+        </div>
+        <div>
+          <div class="section-name">管理端页面</div>
+          <div class="section-desc">概览、员工、考勤、设置及子页、审批、签到码、自定义快捷功能</div>
+        </div>
+        <div class="section-divider"></div>
+      </div>
+      <div class="page-grid">
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="admin-home.html" title="管理首页" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">管理首页</div><div class="page-label-desc">今日出勤 · 快捷功能</div><span class="page-label-badge badge-admin">管理端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="admin-members.html" title="员工管理" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">员工管理</div><div class="page-label-desc">成员列表 · 角色</div><span class="page-label-badge badge-admin">管理端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="admin-attendance.html" title="考勤总览" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">考勤总览</div><div class="page-label-desc">按日期 · 状态</div><span class="page-label-badge badge-admin">管理端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="admin-attendance-detail.html" title="员工考勤详情" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">员工考勤详情</div><div class="page-label-desc">个人时间线</div><span class="page-label-badge badge-admin">管理端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="admin-settings.html" title="企业设置" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">企业设置</div><div class="page-label-desc">入口 · 危险操作</div><span class="page-label-badge badge-admin">管理端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="admin-settings-location.html" title="考勤地点与验证" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">考勤地点与验证</div><div class="page-label-desc">地点 · 半径 · 人脸/定位</div><span class="page-label-badge badge-admin">管理端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="admin-settings-schedule.html" title="班次时间" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">班次时间</div><div class="page-label-desc">上下班 · 迟到宽限</div><span class="page-label-badge badge-admin">管理端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="admin-settings-invite.html" title="邀请与签到码" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">邀请与签到码</div><div class="page-label-desc">邀请码 · 二维码入口</div><span class="page-label-badge badge-admin">管理端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="admin-invite-qrcode.html" title="邀请二维码" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">邀请二维码</div><div class="page-label-desc">保存 · 复制</div><span class="page-label-badge badge-admin">管理端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="admin-quick-customize.html" title="自定义快捷功能" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">自定义快捷功能</div><div class="page-label-desc">排序 · 显隐</div><span class="page-label-badge badge-admin">管理端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="admin-leave-approval.html" title="请假审批" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">请假审批</div><div class="page-label-desc">通过 / 拒绝</div><span class="page-label-badge badge-admin">管理端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="admin-exit-approval.html" title="退出审批" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">退出审批</div><div class="page-label-desc">批准 / 拒绝</div><span class="page-label-badge badge-admin">管理端</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="admin-punch-code.html" title="动态签到码" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">动态签到码</div><div class="page-label-desc">生成 · 展示二维码</div><span class="page-label-badge badge-admin">管理端</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 其他 ==================== -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon section-icon-other">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="white" stroke-width="1.8" fill="none"/><path d="M10 6V10L12.5 12.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="section-name">其他页面</div>
+          <div class="section-desc">隐私政策、帮助与反馈</div>
+        </div>
+        <div class="section-divider"></div>
+      </div>
+      <div class="page-grid">
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="privacy.html" title="隐私政策" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">隐私政策与用户协议</div><div class="page-label-desc">收集 · 使用 · 权利</div><span class="page-label-badge badge-other">其他</span></div>
+        </div>
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame"><div class="dynamic-island"></div><div class="phone-btn-left"></div><div class="phone-btn-left-2"></div><div class="phone-btn-left-3"></div><div class="phone-btn-right"></div>
+            <iframe src="help.html" title="帮助与反馈" scrolling="no"></iframe></div>
+          <div class="page-label"><div class="page-label-name">帮助与反馈</div><div class="page-label-desc">FAQ · 意见反馈</div><span class="page-label-badge badge-other">其他</span></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p style="margin:0 0 6px;">企业员工考勤微信小程序 · 实际界面原型 real.html · 与 miniprogram/pages 对应</p>
+      <p style="margin:0;opacity:0.6;">22 个页面 · iPhone 15 Pro (393×852pt) · 基于当前 WXML 还原</p>
+    </footer>
+  </main>
+</body>
+</html>
