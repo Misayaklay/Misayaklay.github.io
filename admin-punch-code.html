@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>动态签到码</title>
+  <style>
+    :root { --brand: #0052D9; --bg: #F3F3F3; --card: #fff; --text1: #0D0D0D; --text2: #4B4B4B; --text3: #9A9A9A; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; font-family: -apple-system, 'PingFang SC', sans-serif; background: var(--bg); width: 393px; min-height: 852px; }
+    .navbar { height: 44px; background: var(--brand); color: #fff; display: flex; align-items: center; padding: 0 16px; font-size: 17px; font-weight: 600; }
+    .scroll { padding: 16px; }
+    .card { background: var(--card); border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+    .desc { font-size: 13px; color: var(--text2); line-height: 1.5; margin-bottom: 16px; }
+    .setting-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; font-size: 15px; }
+    .btn { width: 100%; background: var(--brand); color: #fff; border: none; border-radius: 10px; padding: 14px; font-size: 16px; font-weight: 600; cursor: pointer; }
+    .qr-wrap { width: 200px; height: 200px; margin: 16px auto; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text3); font-size: 12px; }
+    .code-raw { display: block; text-align: center; font-family: monospace; font-size: 14px; color: var(--text2); margin: 12px 0; }
+    .btn-small { padding: 8px 16px; border-radius: 8px; font-size: 14px; background: #E8F0FD; color: var(--brand); border: none; cursor: pointer; margin-top: 8px; }
+    .expire { font-size: 12px; color: var(--text3); margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <div class="navbar"><span style="margin-right:8px">←</span> 动态签到码</div>
+  <div class="scroll">
+    <div class="card">
+      <p class="desc">员工在签到页点击「签到」并通过定位后，将提示扫描本页展示的二维码，扫码通过后再进行人脸验证。</p>
+      <div class="setting-row"><span>有效时间（秒）</span><input type="number" value="300" style="width:70px;padding:6px;border:1px solid #E7E7E7;border-radius:6px;" /><span>秒</span></div>
+      <button class="btn">生成签到码</button>
+    </div>
+    <div class="card">
+      <p class="desc">请将下方二维码展示给员工扫描</p>
+      <div class="qr-wrap">二维码</div>
+      <span class="code-raw">PUNCH:CO-xxx:xxxxx</span>
+      <button class="btn-small">复制签到码</button>
+      <p class="expire">有效期至 14:35</p>
+    </div>
+  </div>
+</body>
+</html>

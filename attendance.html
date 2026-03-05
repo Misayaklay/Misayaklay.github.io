@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的考勤</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --td-brand: #0052D9;
+      --td-success: #00A870;
+      --td-warning: #ED7B2F;
+      --td-error: #E34D59;
+      --td-bg-page: #F3F3F3;
+      --td-bg-card: #FFFFFF;
+      --td-text-1: #0D0D0D;
+      --td-text-2: #4B4B4B;
+      --td-text-3: #9A9A9A;
+      --td-border: #E7E7E7;
+    }
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    body {
+      margin: 0; padding: 0;
+      font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
+      background: var(--td-bg-page);
+      height: 852px; width: 393px;
+      overflow: hidden;
+    }
+    .status-bar { height: 44px; background: var(--td-brand); display: flex; align-items: center; padding: 0 20px; justify-content: space-between; }
+    .nav-bar { height: 44px; background: var(--td-brand); display: flex; align-items: center; padding: 0 16px; }
+    .tab-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 83px; background: var(--td-bg-card); border-top: 1px solid var(--td-border); display: flex; padding-bottom: 26px; }
+    .tab-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 4px; gap: 3px; }
+    .tab-label { font-size: 10px; color: var(--td-text-3); }
+    .tab-label.active { color: var(--td-brand); }
+    .tag { display: inline-flex; align-items: center; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; }
+    .filter-chip { padding: 5px 12px; border-radius: 16px; font-size: 12px; border: 1px solid var(--td-border); color: var(--td-text-2); background: var(--td-bg-card); }
+    .filter-chip.active { background: #E8F0FD; color: var(--td-brand); border-color: var(--td-brand); }
+  </style>
+</head>
+<body>
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span style="font-size:15px;font-weight:600;color:white;">9:41</span>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="white"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="white"/><rect x="9" y="0.5" width="3" height="11.5" rx="1" fill="white"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="white"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 2.5C10.2 2.5 12.2 3.4 13.6 4.9L15 3.4C13.2 1.5 10.7 0.3 8 0.3C5.3 0.3 2.8 1.5 1 3.4L2.4 4.9C3.8 3.4 5.8 2.5 8 2.5Z" fill="white"/><path d="M8 5.5C9.4 5.5 10.7 6.1 11.6 7L13 5.5C11.7 4.2 9.9 3.4 8 3.4C6.1 3.4 4.3 4.2 3 5.5L4.4 7C5.3 6.1 6.6 5.5 8 5.5Z" fill="white"/><circle cx="8" cy="10" r="1.5" fill="white"/></svg>
+      <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.5"/><rect x="2" y="2" width="16" height="8" rx="2" fill="white"/></svg>
+    </div>
+  </div>
+
+  <!-- Nav Bar -->
+  <div class="nav-bar">
+    <span style="font-size:17px;font-weight:600;color:white;flex:1;text-align:center;">我的考勤</span>
+  </div>
+
+  <!-- Scrollable Content -->
+  <div style="overflow-y:auto;height:calc(852px - 44px - 44px - 83px);">
+    
+    <!-- Stats Summary -->
+    <div style="background:var(--td-brand);padding:12px 16px 20px;">
+      <div style="background:rgba(255,255,255,0.15);border-radius:10px;padding:14px;display:flex;justify-content:space-around;">
+        <div style="text-align:center;">
+          <div style="font-size:24px;font-weight:700;color:white;">18</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.75);margin-top:2px;">出勤天数</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,0.25);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:24px;font-weight:700;color:#FFD700;">2</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.75);margin-top:2px;">迟到次数</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,0.25);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:24px;font-weight:700;color:#FF8A8A;">0</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.75);margin-top:2px;">缺卡次数</div>
+        </div>
+        <div style="width:1px;background:rgba(255,255,255,0.25);"></div>
+        <div style="text-align:center;">
+          <div style="font-size:24px;font-weight:700;color:white;">1</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.75);margin-top:2px;">早退次数</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div style="background:var(--td-bg-card);padding:12px 16px;display:flex;gap:8px;overflow-x:auto;border-bottom:1px solid var(--td-border);">
+      <span class="filter-chip active">全部</span>
+      <span class="filter-chip">正常</span>
+      <span class="filter-chip">迟到</span>
+      <span class="filter-chip">早退</span>
+      <span class="filter-chip">缺卡</span>
+      <span class="filter-chip">异常</span>
+    </div>
+
+    <!-- Month Selector -->
+    <div style="background:var(--td-bg-card);padding:10px 16px;display:flex;align-items:center;justify-content:center;gap:16px;border-bottom:1px solid var(--td-border);">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12 6L8 10L12 14" stroke="#4B4B4B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span style="font-size:15px;font-weight:600;color:var(--td-text-1);">2026年 2月</span>
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M8 6L12 10L8 14" stroke="#9A9A9A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- Records List -->
+    <div style="padding:12px 16px;">
+
+      <!-- Date Group -->
+      <div style="font-size:12px;color:var(--td-text-3);margin-bottom:8px;font-weight:500;">2月 第4周</div>
+
+      <!-- Record Item - Normal -->
+      <div style="background:var(--td-bg-card);border-radius:10px;padding:14px;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <div style="font-size:14px;font-weight:600;color:var(--td-text-1);">2月25日 周三</div>
+          <span class="tag" style="background:#E8F7F2;color:#00A870;">正常</span>
+        </div>
+        <div style="display:flex;gap:20px;">
+          <div>
+            <div style="font-size:11px;color:var(--td-text-3);margin-bottom:3px;">签到时间</div>
+            <div style="font-size:15px;font-weight:600;color:var(--td-text-1);">09:02</div>
+          </div>
+          <div style="width:1px;background:var(--td-border);"></div>
+          <div>
+            <div style="font-size:11px;color:var(--td-text-3);margin-bottom:3px;">签退时间</div>
+            <div style="font-size:15px;font-weight:600;color:var(--td-text-1);">18:15</div>
+          </div>
+          <div style="width:1px;background:var(--td-border);"></div>
+          <div>
+            <div style="font-size:11px;color:var(--td-text-3);margin-bottom:3px;">工作时长</div>
+            <div style="font-size:15px;font-weight:600;color:var(--td-brand);">9h 13m</div>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--td-text-3);display:flex;align-items:center;gap:4px;">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1C3.8 1 2 2.8 2 5C2 7.5 6 11 6 11C6 11 10 7.5 10 5C10 2.8 8.2 1 6 1Z" fill="#9A9A9A"/><circle cx="6" cy="5" r="1.5" fill="white"/></svg>
+          张江高科技园区
+        </div>
+      </div>
+
+      <!-- Record Item - Late -->
+      <div style="background:var(--td-bg-card);border-radius:10px;padding:14px;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <div style="font-size:14px;font-weight:600;color:var(--td-text-1);">2月24日 周二</div>
+          <span class="tag" style="background:#FEF0E1;color:#ED7B2F;">迟到 18分钟</span>
+        </div>
+        <div style="display:flex;gap:20px;">
+          <div>
+            <div style="font-size:11px;color:var(--td-text-3);margin-bottom:3px;">签到时间</div>
+            <div style="font-size:15px;font-weight:600;color:#ED7B2F;">09:18</div>
+          </div>
+          <div style="width:1px;background:var(--td-border);"></div>
+          <div>
+            <div style="font-size:11px;color:var(--td-text-3);margin-bottom:3px;">签退时间</div>
+            <div style="font-size:15px;font-weight:600;color:var(--td-text-1);">18:05</div>
+          </div>
+          <div style="width:1px;background:var(--td-border);"></div>
+          <div>
+            <div style="font-size:11px;color:var(--td-text-3);margin-bottom:3px;">工作时长</div>
+            <div style="font-size:15px;font-weight:600;color:var(--td-brand);">8h 47m</div>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--td-text-3);display:flex;align-items:center;gap:4px;">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1C3.8 1 2 2.8 2 5C2 7.5 6 11 6 11C6 11 10 7.5 10 5C10 2.8 8.2 1 6 1Z" fill="#9A9A9A"/><circle cx="6" cy="5" r="1.5" fill="white"/></svg>
+          张江高科技园区
+        </div>
+      </div>
+
+      <!-- Record Item - Normal -->
+      <div style="background:var(--td-bg-card);border-radius:10px;padding:14px;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <div style="font-size:14px;font-weight:600;color:var(--td-text-1);">2月23日 周一</div>
+          <span class="tag" style="background:#E8F7F2;color:#00A870;">正常</span>
+        </div>
+        <div style="display:flex;gap:20px;">
+          <div>
+            <div style="font-size:11px;color:var(--td-text-3);margin-bottom:3px;">签到时间</div>
+            <div style="font-size:15px;font-weight:600;color:var(--td-text-1);">08:55</div>
+          </div>
+          <div style="width:1px;background:var(--td-border);"></div>
+          <div>
+            <div style="font-size:11px;color:var(--td-text-3);margin-bottom:3px;">签退时间</div>
+            <div style="font-size:15px;font-weight:600;color:var(--td-text-1);">18:30</div>
+          </div>
+          <div style="width:1px;background:var(--td-border);"></div>
+          <div>
+            <div style="font-size:11px;color:var(--td-text-3);margin-bottom:3px;">工作时长</div>
+            <div style="font-size:15px;font-weight:600;color:var(--td-brand);">9h 35m</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date Group -->
+      <div style="font-size:12px;color:var(--td-text-3);margin:12px 0 8px;font-weight:500;">2月 第3周</div>
+
+      <!-- Record - Early Leave -->
+      <div style="background:var(--td-bg-card);border-radius:10px;padding:14px;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <div style="font-size:14px;font-weight:600;color:var(--td-text-1);">2月20日 周五</div>
+          <span class="tag" style="background:#FDECEE;color:#E34D59;">早退 45分钟</span>
+        </div>
+        <div style="display:flex;gap:20px;">
+          <div>
+            <div style="font-size:11px;color:var(--td-text-3);margin-bottom:3px;">签到时间</div>
+            <div style="font-size:15px;font-weight:600;color:var(--td-text-1);">09:00</div>
+          </div>
+          <div style="width:1px;background:var(--td-border);"></div>
+          <div>
+            <div style="font-size:11px;color:var(--td-text-3);margin-bottom:3px;">签退时间</div>
+            <div style="font-size:15px;font-weight:600;color:#E34D59;">17:15</div>
+          </div>
+          <div style="width:1px;background:var(--td-border);"></div>
+          <div>
+            <div style="font-size:11px;color:var(--td-text-3);margin-bottom:3px;">工作时长</div>
+            <div style="font-size:15px;font-weight:600;color:var(--td-brand);">8h 15m</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:16px;"></div>
+    </div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <div class="tab-item">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 9L12 3L21 9V20C21 20.6 20.6 21 20 21H15V15H9V21H4C3.4 21 3 20.6 3 20V9Z" stroke="#9A9A9A" stroke-width="1.8" fill="none"/></svg>
+      <span class="tab-label">首页</span>
+    </div>
+    <div class="tab-item">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" fill="#0052D9"/><path d="M8 2V6M16 2V6M3 10H21" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M7 14H9M11 14H13M15 14H17M7 17H9" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="tab-label active">我的考勤</span>
+    </div>
+    <div class="tab-item">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#9A9A9A" stroke-width="1.8" fill="none"/><path d="M4 20C4 16.7 7.6 14 12 14C16.4 14 20 16.7 20 20" stroke="#9A9A9A" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
+      <span class="tab-label">个人中心</span>
+    </div>
+  </div>
+</body>
+</html>

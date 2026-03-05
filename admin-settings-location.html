@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>考勤地点与验证</title>
+  <style>
+    :root { --brand: #0052D9; --bg: #F3F3F3; --card: #fff; --text1: #0D0D0D; --text2: #4B4B4B; --text3: #9A9A9A; --border: #E7E7E7; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; font-family: -apple-system, 'PingFang SC', sans-serif; background: var(--bg); width: 393px; min-height: 852px; }
+    .navbar { height: 44px; background: #fff; color: var(--text1); display: flex; align-items: center; padding: 0 16px; font-size: 17px; font-weight: 600; border-bottom: 1px solid var(--border); }
+    .scroll { padding: 16px; }
+    .group-title { font-size: 13px; color: var(--text3); padding: 12px 16px 8px; }
+    .cell { display: flex; align-items: center; padding: 14px 16px; background: var(--card); border-bottom: 1px solid var(--border); font-size: 15px; }
+    .cell:last-child { border-bottom: none; }
+    .cell-icon { width: 24px; height: 24px; margin-right: 12px; background: var(--brand); opacity: 0.2; border-radius: 6px; }
+    .cell-title { flex: 1; color: var(--text1); }
+    .cell-note { color: var(--text3); font-size: 13px; }
+    .cell-arrow { color: var(--text3); }
+    .switch { width: 48px; height: 28px; background: var(--brand); border-radius: 14px; }
+  </style>
+</head>
+<body>
+  <div class="navbar"><span style="margin-right:8px">←</span> 考勤地点与验证</div>
+  <div class="scroll">
+    <div class="group-title">打卡地点</div>
+    <div class="cell"><div class="cell-icon"></div><span class="cell-title">打卡地点名称</span><span class="cell-note">总部一楼</span><span class="cell-arrow">›</span></div>
+    <div class="cell"><div class="cell-icon"></div><span class="cell-title">打卡坐标</span><span class="cell-note">已设置</span><span class="cell-arrow">›</span></div>
+    <div class="cell"><div class="cell-icon"></div><span class="cell-title">允许打卡半径（米）</span><input type="number" value="200" style="width:60px;text-align:right;border:1px solid var(--border);border-radius:6px;padding:6px;" /></div>
+    <div class="group-title">验证设置</div>
+    <div class="cell"><div class="cell-icon"></div><span class="cell-title">人脸识别验证</span><span class="cell-note">打卡必须通过人脸识别</span><div class="switch"></div></div>
+    <div class="cell"><div class="cell-icon"></div><span class="cell-title">定位验证</span><span class="cell-note">必须在允许范围内才可打卡</span><div class="switch"></div></div>
+  </div>
+</body>
+</html>

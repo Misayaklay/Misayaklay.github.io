@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>邀请与签到码</title>
+  <style>
+    :root { --brand: #0052D9; --bg: #F3F3F3; --card: #fff; --text1: #0D0D0D; --text2: #4B4B4B; --text3: #9A9A9A; --border: #E7E7E7; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; font-family: -apple-system, 'PingFang SC', sans-serif; background: var(--bg); width: 393px; min-height: 852px; }
+    .navbar { height: 44px; background: #fff; display: flex; align-items: center; padding: 0 16px; font-size: 17px; font-weight: 600; border-bottom: 1px solid var(--border); }
+    .scroll { padding: 16px; }
+    .group-title { font-size: 13px; color: var(--text3); padding: 12px 16px 8px; }
+    .cell { display: flex; align-items: center; padding: 14px 16px; background: var(--card); border-bottom: 1px solid var(--border); font-size: 15px; }
+    .cell:last-child { border-bottom: none; }
+    .cell-icon { width: 24px; height: 24px; margin-right: 12px; background: #00A870; opacity: 0.3; border-radius: 6px; }
+    .cell-title { flex: 1; color: var(--text1); }
+    .invite-code { font-family: monospace; font-size: 18px; font-weight: 600; color: var(--brand); letter-spacing: 2px; margin-right: 12px; }
+    .tag-btn { font-size: 12px; padding: 4px 10px; border-radius: 6px; margin-left: 8px; border: 1px solid var(--border); background: #fff; }
+  </style>
+</head>
+<body>
+  <div class="navbar"><span style="margin-right:8px">←</span> 邀请与签到码</div>
+  <div class="scroll">
+    <div class="group-title">邀请管理</div>
+    <div class="cell"><div class="cell-icon"></div><span class="cell-title">企业邀请码</span><span class="invite-code">AB12CD</span><button class="tag-btn">复制</button><button class="tag-btn">刷新</button></div>
+    <div class="cell"><span class="cell-title">生成邀请二维码</span><span style="color:var(--text3)">›</span></div>
+    <div class="group-title">签到码</div>
+    <div class="cell"><div class="cell-icon"></div><span class="cell-title">生成签到码</span><span class="cell-note" style="font-size:13px">现场展示二维码供员工扫码签到</span><span style="color:var(--text3)">›</span></div>
+  </div>
+</body>
+</html>

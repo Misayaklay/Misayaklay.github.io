@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>请假</title>
+  <style>
+    :root { --brand: #0052D9; --bg: #F3F3F3; --card: #fff; --text1: #0D0D0D; --text2: #4B4B4B; --text3: #9A9A9A; --border: #E7E7E7; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; font-family: -apple-system, 'PingFang SC', sans-serif; background: var(--bg); width: 393px; min-height: 852px; }
+    .navbar { height: 44px; background: var(--brand); color: #fff; display: flex; align-items: center; padding: 0 16px; font-size: 17px; font-weight: 600; }
+    .navbar .back { margin-right: 8px; }
+    .scroll { padding: 16px; padding-bottom: 32px; }
+    .card { background: var(--card); border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+    .card-title { font-size: 16px; font-weight: 600; color: var(--text1); margin-bottom: 16px; display: block; }
+    .form-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+    .form-row:last-of-type { border-bottom: none; }
+    .label { color: var(--text2); }
+    .picker { color: var(--text3); }
+    .input { border: none; text-align: right; flex: 1; margin-left: 12px; font-size: 15px; }
+    .btn { width: 100%; background: var(--brand); color: #fff; border: none; border-radius: 10px; padding: 14px; font-size: 16px; font-weight: 600; margin-top: 16px; cursor: pointer; }
+    .tip { font-size: 12px; color: var(--text3); margin-top: 12px; line-height: 1.5; }
+    .leave-item { background: var(--card); border-radius: 10px; padding: 14px; margin-bottom: 10px; border: 1px solid var(--border); }
+    .leave-item-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .leave-item-range { font-size: 14px; font-weight: 500; color: var(--text1); }
+    .tag { font-size: 11px; padding: 2px 8px; border-radius: 4px; }
+    .tag-warning { background: #FEF0E1; color: #ED7B2F; }
+    .leave-item-meta { font-size: 13px; color: var(--text3); }
+  </style>
+</head>
+<body>
+  <div class="navbar"><span class="back">←</span> 请假</div>
+  <div class="scroll">
+    <div class="card">
+      <span class="card-title">申请请假</span>
+      <div class="form-row"><span class="label">开始日期</span><span class="picker">请选择</span></div>
+      <div class="form-row"><span class="label">结束日期</span><span class="picker">请选择</span></div>
+      <div class="form-row"><span class="label">请假时段</span><span class="picker">全天</span></div>
+      <div class="form-row"><span class="label">原因（选填）</span><input class="input" placeholder="请输入请假原因" /></div>
+      <button class="btn">提交申请</button>
+      <p class="tip">提交后将通知管理员与创建者审批，审批结果会体现在考勤记录中。</p>
+    </div>
+    <div class="card">
+      <span class="card-title">我的请假记录</span>
+      <div class="leave-item">
+        <div class="leave-item-head"><span class="leave-item-range">2026-02-20 至 2026-02-21</span><span class="tag tag-warning">待审批</span></div>
+        <div class="leave-item-meta">全天 · 原因：事假</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

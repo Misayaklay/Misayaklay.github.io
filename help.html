@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>帮助与反馈</title>
+  <style>
+    :root { --brand: #0052D9; --bg: #F3F3F3; --card: #fff; --text1: #0D0D0D; --text2: #4B4B4B; --text3: #9A9A9A; --border: #E7E7E7; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; font-family: -apple-system, 'PingFang SC', sans-serif; background: var(--bg); width: 393px; min-height: 852px; }
+    .navbar { height: 44px; background: #fff; display: flex; align-items: center; padding: 0 16px; font-size: 17px; font-weight: 600; border-bottom: 1px solid var(--border); }
+    .scroll { padding: 16px; }
+    .section-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .section-title { font-size: 16px; font-weight: 600; color: var(--text1); }
+    .faq-item { background: var(--card); border-radius: 10px; margin-bottom: 8px; overflow: hidden; border: 1px solid var(--border); }
+    .faq-header { padding: 14px 16px; font-size: 15px; color: var(--text1); display: flex; justify-content: space-between; align-items: center; }
+    .faq-answer { padding: 0 16px 14px; font-size: 13px; color: var(--text2); line-height: 1.5; }
+    .feedback-card { background: var(--card); border-radius: 10px; padding: 16px; border: 1px solid var(--border); margin-top: 8px; }
+    .textarea { width: 100%; min-height: 100px; border: 1px solid var(--border); border-radius: 8px; padding: 12px; font-size: 14px; resize: vertical; }
+    .btn { width: 100%; background: var(--brand); color: #fff; border: none; border-radius: 10px; padding: 14px; font-size: 15px; font-weight: 600; margin-top: 12px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="navbar"><span style="margin-right:8px">←</span> 帮助与反馈</div>
+  <div class="scroll">
+    <div class="section-header"><div style="width:24px;height:24px;background:var(--brand);opacity:0.2;border-radius:6px;"></div><span class="section-title">常见问题</span></div>
+    <div class="faq-item">
+      <div class="faq-header">如何加入企业？ <span>›</span></div>
+      <div class="faq-answer">在"个人中心"→"企业信息"→"加入企业"，输入管理员提供的 6 位邀请码，或扫描企业邀请二维码即可加入。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-header">打卡时提示【不在打卡范围内】怎么办？ <span>›</span></div>
+      <div class="faq-answer">请确认您已到达企业设定的打卡地点，并开启手机 GPS 定位。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-header">人脸采集失败或识别不通过？ <span>›</span></div>
+      <div class="faq-answer">请确保摄像头权限已开启、光线充足、正面朝向镜头。</div>
+    </div>
+    <div class="section-header" style="margin-top:24px"><div style="width:24px;height:24px;background:var(--brand);opacity:0.2;border-radius:6px;"></div><span class="section-title">意见反馈</span></div>
+    <div class="feedback-card">
+      <textarea class="textarea" placeholder="请描述您遇到的问题或建议..."></textarea>
+      <button class="btn">提交反馈</button>
+    </div>
+  </div>
+</body>
+</html>

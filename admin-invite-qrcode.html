@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>邀请二维码</title>
+  <style>
+    :root { --brand: #0052D9; --bg: #F3F3F3; --card: #fff; --text1: #0D0D0D; --text2: #4B4B4B; --text3: #9A9A9A; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; font-family: -apple-system, 'PingFang SC', sans-serif; background: var(--bg); width: 393px; min-height: 852px; display: flex; flex-direction: column; align-items: center; padding: 24px 16px; }
+    .navbar { height: 44px; width: 100%; display: flex; align-items: center; padding: 0 16px; font-size: 17px; font-weight: 600; margin-bottom: 16px; }
+    .card { background: var(--card); border-radius: 12px; padding: 24px; width: 100%; max-width: 360px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); text-align: center; }
+    .desc { font-size: 13px; color: var(--text2); line-height: 1.5; margin-bottom: 20px; }
+    .qr-wrap { width: 200px; height: 200px; margin: 0 auto 16px; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text3); font-size: 12px; }
+    .code-label { font-size: 14px; color: var(--text2); margin-bottom: 12px; }
+    .btn { width: 100%; padding: 12px; border-radius: 10px; font-size: 15px; font-weight: 500; margin-bottom: 10px; cursor: pointer; border: none; }
+    .btn-primary { background: var(--brand); color: #fff; }
+    .btn-light { background: #E8F0FD; color: var(--brand); }
+    .btn-default { background: #fff; color: var(--text2); border: 1px solid #E7E7E7; }
+  </style>
+</head>
+<body>
+  <div class="navbar"><span style="margin-right:8px">←</span> 邀请二维码</div>
+  <div class="card">
+    <p class="desc">员工扫码后可自动填入邀请码并加入企业</p>
+    <div class="qr-wrap">二维码区域</div>
+    <div class="code-label">邀请码 AB12CD</div>
+    <button class="btn btn-primary">保存图片</button>
+    <button class="btn btn-light">复制邀请码</button>
+    <button class="btn btn-default">关闭</button>
+  </div>
+</body>
+</html>

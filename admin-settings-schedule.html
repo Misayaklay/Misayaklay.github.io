@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>班次时间</title>
+  <style>
+    :root { --brand: #0052D9; --bg: #F3F3F3; --card: #fff; --text1: #0D0D0D; --text2: #4B4B4B; --text3: #9A9A9A; --border: #E7E7E7; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; font-family: -apple-system, 'PingFang SC', sans-serif; background: var(--bg); width: 393px; min-height: 852px; }
+    .navbar { height: 44px; background: #fff; display: flex; align-items: center; padding: 0 16px; font-size: 17px; font-weight: 600; border-bottom: 1px solid var(--border); }
+    .scroll { padding: 16px; }
+    .group-title { font-size: 13px; color: var(--text3); padding: 12px 16px 8px; }
+    .cell { display: flex; align-items: center; padding: 14px 16px; background: var(--card); border-bottom: 1px solid var(--border); font-size: 15px; }
+    .cell:last-child { border-bottom: none; }
+    .cell-icon { width: 24px; height: 24px; margin-right: 12px; background: #ED7B2F; opacity: 0.3; border-radius: 6px; }
+    .cell-title { flex: 1; color: var(--text1); }
+    .badge { background: #E8F7F2; color: #00A870; padding: 4px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="navbar"><span style="margin-right:8px">←</span> 班次时间</div>
+  <div class="scroll">
+    <div class="group-title">上午班次</div>
+    <div class="cell"><div class="cell-icon"></div><span class="cell-title">上午上班时间</span><span class="badge">09:00</span></div>
+    <div class="cell"><div class="cell-icon"></div><span class="cell-title">上午下班时间</span><span class="badge">12:00</span></div>
+    <div class="group-title">下午班次</div>
+    <div class="cell"><div class="cell-icon"></div><span class="cell-title">下午上班时间</span><span class="badge">13:00</span></div>
+    <div class="cell"><div class="cell-icon"></div><span class="cell-title">下午下班时间</span><span class="badge">18:00</span></div>
+    <div class="cell"><div class="cell-icon"></div><span class="cell-title">迟到宽限（分钟）</span><input type="number" value="0" style="width:50px;text-align:right;border:1px solid #ED7B2F;border-radius:6px;padding:6px;" /><span style="margin-left:4px;font-size:13px;color:#ED7B2F">分钟</span></div>
+  </div>
+</body>
+</html>

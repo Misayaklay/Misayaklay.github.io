@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>使用教程 · 企业员工考勤</title>
+  <style>
+    :root {
+      --brand: #0052D9;
+      --brand-light: #E8F0FD;
+      --success: #00A870;
+      --success-light: #E8F7F2;
+      --warning: #ED7B2F;
+      --bg: #F0F2F7;
+      --card: #FFFFFF;
+      --text1: #0D0D0D;
+      --text2: #4B4B4B;
+      --text3: #9A9A9A;
+      --border: #DDE1EA;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', 'Inter', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .header {
+      background: var(--brand);
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,82,217,0.3);
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .header-back {
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 0;
+    }
+    .header-back:hover { color: white; }
+    .header-title {
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .header-subtitle {
+      color: rgba(255,255,255,0.7);
+      font-size: 12px;
+      margin-top: 1px;
+    }
+    .header-print-tip {
+      color: rgba(255,255,255,0.85);
+      font-size: 12px;
+    }
+
+    .main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 36px 40px 80px;
+    }
+
+    .tutorial-intro {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 28px;
+      border: 1px solid var(--border);
+    }
+    .tutorial-intro h1 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text1);
+    }
+    .tutorial-intro p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+    .tutorial-intro .print-tip {
+      margin-top: 14px;
+      padding: 10px 14px;
+      background: var(--brand-light);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text2);
+    }
+    .tutorial-intro .print-tip strong { color: var(--brand); }
+
+    .toc {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 20px 28px;
+      margin-bottom: 28px;
+      border: 1px solid var(--border);
+    }
+    .toc h2 {
+      margin: 0 0 14px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text1);
+    }
+    .toc ol {
+      margin: 0;
+      padding-left: 22px;
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 2;
+    }
+    .toc a {
+      color: var(--brand);
+      text-decoration: none;
+    }
+    .toc a:hover { text-decoration: underline; }
+
+    .tutorial-section {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+    }
+    .tutorial-section h2 {
+      margin: 0 0 20px;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tutorial-section h2 .num {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--brand);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tutorial-step {
+      margin-bottom: 16px;
+      padding-left: 20px;
+      border-left: 3px solid var(--brand-light);
+    }
+    .tutorial-step:last-child { margin-bottom: 0; }
+    .tutorial-step strong {
+      color: var(--text1);
+      font-size: 14px;
+    }
+    .tutorial-step p {
+      margin: 6px 0 0;
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+    .tutorial-step .hint {
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 4px;
+    }
+
+    .proto-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      padding: 8px 14px;
+      background: var(--brand-light);
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .proto-link:hover {
+      background: rgba(0,82,217,0.2);
+      color: #003d9e;
+    }
+    .proto-link.no-href {
+      background: #f0f0f0;
+      color: var(--text3);
+      cursor: default;
+    }
+
+    .proto-embed {
+      margin-top: 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--card);
+    }
+    .proto-embed-label {
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--brand);
+      background: var(--brand-light);
+      border-bottom: 1px solid var(--border);
+    }
+    .proto-iframe {
+      display: block;
+      width: 100%;
+      height: 520px;
+      border: none;
+      background: #fff;
+    }
+
+    .tutorial-note {
+      background: #FFF9E6;
+      border: 1px solid rgba(237,123,47,0.35);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--text2);
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+    .tutorial-note strong { color: var(--warning); }
+
+    .footer-links {
+      text-align: center;
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      margin-top: 16px;
+    }
+    .footer-links a {
+      color: var(--brand);
+      font-size: 14px;
+      text-decoration: none;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+
+    /* 打印样式：适合导出 PDF */
+    @media print {
+      body { background: #fff; }
+      .header {
+        background: #0052D9 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .header-back,
+      .header-print-tip,
+      .proto-link,
+      .proto-embed,
+      .footer-links { display: none !important; }
+      .main { padding: 0 0 20px; max-width: 100%; }
+      .tutorial-section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin-bottom: 20px;
+        box-shadow: none;
+      }
+      .tutorial-intro .print-tip { display: none !important; }
+      .toc { break-inside: avoid; page-break-inside: avoid; }
+      a[href^="http"]:after,
+      .proto-link:after { content: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-left">
+      <a href="index.html" class="header-back">← 返回原型目录</a>
+      <div>
+        <div class="header-title">企业员工考勤 · 使用教程</div>
+        <div class="header-subtitle">从创建企业到日常打卡与请假审批 · 一步步上手</div>
+      </div>
+    </div>
+    <span class="header-print-tip">打印本页可另存为 PDF</span>
+  </header>
+
+  <main class="main">
+
+    <div class="tutorial-intro">
+      <h1>企业员工考勤小程序 · 操作指南</h1>
+      <p>本教程说明如何创建企业、邀请员工、完成签到/签退、提交与审批请假，以及管理员如何生成动态签到码与查看考勤。每个步骤下方直接展示对应原型图，可对照操作。</p>
+      <p class="print-tip"><strong>导出 PDF：</strong>使用浏览器打开本页，按 <kbd>Ctrl+P</kbd>（Mac：<kbd>⌘+P</kbd>），在目标打印机中选择「另存为 PDF」即可保存为使用教程 PDF。</p>
+    </div>
+
+    <nav class="toc">
+      <h2>目录</h2>
+      <ol>
+        <li><a href="#section-1">创建企业（发起者）</a></li>
+        <li><a href="#section-2">加入企业（员工）</a></li>
+        <li><a href="#section-3">员工签到 / 签退流程</a></li>
+        <li><a href="#section-4">管理员与动态签到码</a></li>
+        <li><a href="#section-5">查看考勤记录</a></li>
+        <li><a href="#section-6">请假申请与审批</a></li>
+      </ol>
+    </nav>
+
+    <!-- 一、创建企业 -->
+    <section class="tutorial-section" id="section-1">
+      <h2><span class="num">1</span> 创建企业（发起者）</h2>
+      <div class="tutorial-step">
+        <strong>步骤 1：登录并完善信息</strong>
+        <p>打开小程序，完成微信授权登录；按提示设置昵称与头像。</p>
+        <div class="proto-embed">
+          <div class="proto-embed-label">原型图：登录页</div>
+          <iframe src="login.html" title="登录页" class="proto-iframe"></iframe>
+        </div>
+      </div>
+      <div class="tutorial-step">
+        <strong>步骤 2：填写企业基本信息</strong>
+        <p>进入「创建企业」→ 第一步：填写企业名称（必填），企业简称、地址、行业可选填 → 点击「下一步：考勤配置」。</p>
+        <div class="proto-embed">
+          <div class="proto-embed-label">原型图：创建企业</div>
+          <iframe src="create-company.html" title="创建企业" class="proto-iframe"></iframe>
+        </div>
+      </div>
+      <div class="tutorial-step">
+        <strong>步骤 3：配置考勤规则</strong>
+        <p>第二步：<br>
+          · <b>打卡地点</b>：地点名称必填；打卡坐标默认取当前定位，也可点击「打卡坐标」在地图上选点。<br>
+          · <b>允许打卡半径</b>：单位米，可自由输入。<br>
+          · <b>上午上班 / 上午下班时间</b>：默认上午下班 11:30，可改。<br>
+          · <b>下午上班 / 下午下班时间</b>：默认下午下班 17:30，可改。<br>
+          · <b>迟到宽限</b>：分钟数，可选。</p>
+        <p class="hint">填写完成后点击「完成创建」，系统会生成企业邀请码，可复制发给员工。</p>
+      </div>
+    </section>
+
+    <!-- 二、加入企业 -->
+    <section class="tutorial-section" id="section-2">
+      <h2><span class="num">2</span> 加入企业（员工）</h2>
+      <div class="tutorial-step">
+        <strong>步骤 1：输入邀请码</strong>
+        <p>在「加入企业」页输入发起者/管理员提供的企业邀请码，确认加入。</p>
+        <div class="proto-embed">
+          <div class="proto-embed-label">原型图：加入企业</div>
+          <iframe src="join-company.html" title="加入企业" class="proto-iframe"></iframe>
+        </div>
+      </div>
+      <div class="tutorial-step">
+        <strong>步骤 2：采集人脸</strong>
+        <p>加入后需在「个人中心」完成人脸信息采集，否则无法参与签到（系统会提示先录入人脸）。</p>
+        <div class="proto-embed">
+          <div class="proto-embed-label">原型图：个人中心</div>
+          <iframe src="profile.html" title="个人中心" class="proto-iframe"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 三、员工打卡 -->
+    <section class="tutorial-section" id="section-3">
+      <h2><span class="num">3</span> 员工签到 / 签退流程</h2>
+      <div class="tutorial-step">
+        <strong>步骤 1：确认在打卡范围内</strong>
+        <p>打开首页，查看「当前定位」与打卡点距离；若超出允许半径，无法打卡，需前往指定地点。</p>
+        <div class="proto-embed">
+          <div class="proto-embed-label">原型图：首页 / 打卡页</div>
+          <iframe src="home.html" title="首页 / 打卡页" class="proto-iframe"></iframe>
+        </div>
+      </div>
+      <div class="tutorial-step">
+        <strong>步骤 2：点击签到（上午上班 / 下午上班）或签退（上午下班 / 下午下班）</strong>
+        <p>系统会静默校验定位，不在范围内会直接拒绝。</p>
+      </div>
+      <div class="tutorial-step">
+        <strong>步骤 3：扫描动态二维码</strong>
+        <p>定位通过后，页面会提示「请扫描动态二维码」。点击「去扫码」，扫描管理员或签到码账号在现场生成的二维码。</p>
+      </div>
+      <div class="tutorial-step">
+        <strong>步骤 4：人脸验证</strong>
+        <p>扫码通过后弹出人脸识别，通过即完成当次打卡。</p>
+      </div>
+      <div class="tutorial-note">
+        <strong>说明：</strong>上午下班、下午上班、下午下班同样按「定位 → 扫动态码 → 人脸」顺序操作；加班可在完成下午下班后点击「记录加班时间」。
+      </div>
+    </section>
+
+    <!-- 四、管理员与签到码 -->
+    <section class="tutorial-section" id="section-4">
+      <h2><span class="num">4</span> 管理员与动态签到码</h2>
+      <div class="tutorial-step">
+        <strong>谁可以生成签到码？</strong>
+        <p>仅<strong>企业发起者</strong>，或发起者在「员工管理」中指定的<strong>签到码账号</strong>。普通管理员没有生成权限。</p>
+        <div class="proto-embed">
+          <div class="proto-embed-label">原型图：员工管理</div>
+          <iframe src="admin-members.html" title="员工管理" class="proto-iframe"></iframe>
+        </div>
+      </div>
+      <div class="tutorial-step">
+        <strong>如何生成并展示签到码？</strong>
+        <p>管理首页 → 点击「签到码」→ 选择二维码刷新间隔（1～30 分钟）→ 点击「生成签到码」。将页面上的二维码或签到码展示给现场员工扫描即可。</p>
+        <div class="proto-embed">
+          <div class="proto-embed-label">原型图：管理首页</div>
+          <iframe src="admin-home.html" title="管理首页" class="proto-iframe"></iframe>
+        </div>
+      </div>
+      <div class="tutorial-step">
+        <strong>管理员还能做什么？</strong>
+        <p>成员管理（设置/取消管理员、授予签到码权限、设置个人班次）、考勤总览（按日期与状态查看全员考勤）、企业设置（修改打卡地点、上下班时间等）。</p>
+        <div class="proto-embed">
+          <div class="proto-embed-label">原型图：企业设置</div>
+          <iframe src="admin-settings.html" title="企业设置" class="proto-iframe"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 五、查看考勤 -->
+    <section class="tutorial-section" id="section-5">
+      <h2><span class="num">5</span> 查看考勤记录</h2>
+      <div class="tutorial-step">
+        <strong>员工端</strong>
+        <p>底部 Tab「考勤」→ 查看自己的历史签到/签退记录，可按日期筛选；请假记录会合并显示在考勤列表中。</p>
+        <div class="proto-embed">
+          <div class="proto-embed-label">原型图：我的考勤</div>
+          <iframe src="attendance.html" title="我的考勤" class="proto-iframe"></iframe>
+        </div>
+      </div>
+      <div class="tutorial-step">
+        <strong>管理端</strong>
+        <p>管理首页 →「考勤总览」→ 按日期、状态筛选；点击某条记录可进入该员工的考勤详情页（含请假记录）。</p>
+        <div class="proto-embed">
+          <div class="proto-embed-label">原型图：考勤总览</div>
+          <iframe src="admin-attendance.html" title="考勤总览" class="proto-iframe"></iframe>
+        </div>
+        <div class="proto-embed" style="margin-top: 14px;">
+          <div class="proto-embed-label">原型图：员工考勤详情</div>
+          <iframe src="admin-attendance-detail.html" title="员工考勤详情" class="proto-iframe"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 六、请假申请与审批 -->
+    <section class="tutorial-section" id="section-6">
+      <h2><span class="num">6</span> 请假申请与审批</h2>
+      <div class="tutorial-step">
+        <strong>员工端：提交请假</strong>
+        <p>首页点击「请假」→ 进入请假申请页，填写请假开始日期、结束日期、请假类型（上午/下午/全天）、请假原因 → 提交。提交后可在「考勤」中查看自己的请假记录及审批状态。</p>
+      </div>
+      <div class="tutorial-step">
+        <strong>管理端：审批请假</strong>
+        <p>企业发起者或管理员在管理首页点击「请假审批」→ 查看待审批列表 → 对每条申请选择「通过」或「拒绝」。审批结果会同步到员工的考勤与请假记录中。</p>
+      </div>
+      <div class="tutorial-note">
+        <strong>说明：</strong>请假记录会与签到/签退一起展示在「我的考勤」和「员工考勤详情」中，便于统一查看出勤与缺勤。
+      </div>
+    </section>
+
+    <div class="footer-links">
+      <a href="index.html">← 返回原型目录</a>
+      &nbsp;·&nbsp;
+      <a href="../docs/readme.md">完整使用说明（开发与部署）</a>
+    </div>
+
+  </main>
+</body>
+</html>

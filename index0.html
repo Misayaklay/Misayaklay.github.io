@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>企业员工考勤 · 原型图</title>
+  <style>
+    :root {
+      --brand: #0052D9;
+      --brand-light: #E8F0FD;
+      --bg: #F0F2F7;
+      --card: #FFFFFF;
+      --text1: #0D0D0D;
+      --text2: #4B4B4B;
+      --text3: #9A9A9A;
+      --border: #DDE1EA;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', 'Inter', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    .header {
+      background: var(--brand);
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,82,217,0.3);
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .header-title {
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .header-subtitle {
+      color: rgba(255,255,255,0.65);
+      font-size: 12px;
+      margin-top: 1px;
+    }
+    .header-badge {
+      background: rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.9);
+      font-size: 12px;
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    /* Main Layout */
+    .main {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 36px 40px 60px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 52px;
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .section-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .section-icon-employee { background: linear-gradient(135deg, #0052D9, #1E6EFF); }
+    .section-icon-admin { background: linear-gradient(135deg, #00A870, #00C48C); }
+    .section-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text1);
+    }
+    .section-desc {
+      font-size: 13px;
+      color: var(--text3);
+      margin-top: 2px;
+    }
+    .section-divider {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      margin-left: 8px;
+    }
+
+    /* Page Grid */
+    .page-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    /* Phone Frame */
+    .phone-frame-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .phone-frame {
+      /* iPhone 15 Pro: 393 x 852 logical pixels */
+      width: 393px;
+      height: 852px;
+      border-radius: 54px;
+      overflow: hidden;
+      position: relative;
+      box-shadow:
+        0 0 0 1.5px #C8CAD0,
+        0 0 0 10px #1C1C1E,
+        0 0 0 11.5px #3A3A3C,
+        0 20px 60px rgba(0,0,0,0.4),
+        0 8px 20px rgba(0,0,0,0.2);
+      background: #1C1C1E;
+      flex-shrink: 0;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .phone-frame:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow:
+        0 0 0 1.5px #C8CAD0,
+        0 0 0 10px #1C1C1E,
+        0 0 0 11.5px #3A3A3C,
+        0 32px 80px rgba(0,0,0,0.5),
+        0 12px 32px rgba(0,0,0,0.25);
+    }
+    .phone-frame iframe {
+      width: 393px;
+      height: 852px;
+      border: none;
+      display: block;
+      border-radius: 44px;
+      pointer-events: none;
+    }
+
+    /* Dynamic Island notch */
+    .dynamic-island {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 34px;
+      background: #1C1C1E;
+      border-radius: 20px;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* Side buttons */
+    .phone-btn-left {
+      position: absolute;
+      left: -12px;
+      top: 140px;
+      width: 4px;
+      height: 32px;
+      background: #3A3A3C;
+      border-radius: 2px;
+    }
+    .phone-btn-left-2 {
+      position: absolute;
+      left: -12px;
+      top: 192px;
+      width: 4px;
+      height: 64px;
+      background: #3A3A3C;
+      border-radius: 2px;
+    }
+    .phone-btn-left-3 {
+      position: absolute;
+      left: -12px;
+      top: 270px;
+      width: 4px;
+      height: 64px;
+      background: #3A3A3C;
+      border-radius: 2px;
+    }
+    .phone-btn-right {
+      position: absolute;
+      right: -12px;
+      top: 200px;
+      width: 4px;
+      height: 80px;
+      background: #3A3A3C;
+      border-radius: 2px;
+    }
+
+    /* Page Label */
+    .page-label {
+      text-align: center;
+    }
+    .page-label-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text1);
+    }
+    .page-label-desc {
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 3px;
+    }
+    .page-label-badge {
+      display: inline-block;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+    .badge-employee { background: #E8F0FD; color: #0052D9; }
+    .badge-admin { background: #E8F7F2; color: #00A870; }
+
+    /* Scale note */
+    .scale-note {
+      background: rgba(0,82,217,0.06);
+      border: 1px solid rgba(0,82,217,0.15);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 12px;
+      color: var(--brand);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      max-width: fit-content;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 32px 0 48px;
+      color: var(--text3);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+
+    /* Responsive scale for large screens */
+    @media (max-width: 1400px) {
+      .phone-frame, .phone-frame iframe {
+        width: 340px;
+        height: 736px;
+      }
+      .phone-frame {
+        border-radius: 48px;
+      }
+      .phone-frame iframe {
+        transform: scale(0.8655);
+        transform-origin: top left;
+        width: 393px;
+        height: 852px;
+        margin-left: 0;
+        margin-top: 0;
+      }
+    }
+    @media (max-width: 900px) {
+      .main { padding: 24px 20px 48px; }
+      .page-grid { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-logo">
+      <div class="header-logo-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <circle cx="11" cy="8" r="4" fill="white" fill-opacity="0.9"/>
+          <path d="M3 20C3 15.6 6.7 12 11 12C15.3 12 19 15.6 19 20" stroke="white" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.9"/>
+          <circle cx="17" cy="17" r="4" fill="white" fill-opacity="0.1" stroke="white" stroke-width="1"/>
+          <path d="M15 17L16.5 18.5L19.5 15" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="header-title">企业员工考勤小程序</div>
+        <div class="header-subtitle">原型设计文档 · V1.0</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <a href="tutorial.html" style="color:rgba(255,255,255,0.95);font-size:13px;font-weight:500;text-decoration:none;padding:6px 14px;background:rgba(255,255,255,0.18);border-radius:8px;border:1px solid rgba(255,255,255,0.25);">使用教程</a>
+      <span class="header-badge">11 个页面 · iPhone 15 Pro 规格</span>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+
+    <!-- Scale info -->
+    <div class="scale-note">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="7" stroke="#0052D9" stroke-width="1.4" fill="none"/>
+        <path d="M8 7V11M8 5V5.1" stroke="#0052D9" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      界面尺寸为 iPhone 15 Pro 规格（393 × 852 pt），包含 Dynamic Island 与真实设备圆角设计，1:1 原始像素预览
+    </div>
+
+    <!-- ==================== EMPLOYEE SECTION ==================== -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon section-icon-employee">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="7" r="4" fill="white" fill-opacity="0.9"/>
+            <path d="M2 18C2 14.7 5.6 12 10 12C14.4 12 18 14.7 18 18" stroke="white" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.9"/>
+          </svg>
+        </div>
+        <div>
+          <div class="section-name">员工端页面</div>
+          <div class="section-desc">普通员工日常使用功能，包括打卡、考勤查询、个人信息管理</div>
+        </div>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="page-grid">
+
+        <!-- Login -->
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame">
+            <div class="dynamic-island"></div>
+            <div class="phone-btn-left"></div>
+            <div class="phone-btn-left-2"></div>
+            <div class="phone-btn-left-3"></div>
+            <div class="phone-btn-right"></div>
+            <iframe src="login.html" title="登录页" scrolling="no"></iframe>
+          </div>
+          <div class="page-label">
+            <div class="page-label-name">登录页</div>
+            <div class="page-label-desc">微信一键授权登录</div>
+            <span class="page-label-badge badge-employee">员工端</span>
+          </div>
+        </div>
+
+        <!-- Home -->
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame">
+            <div class="dynamic-island"></div>
+            <div class="phone-btn-left"></div>
+            <div class="phone-btn-left-2"></div>
+            <div class="phone-btn-left-3"></div>
+            <div class="phone-btn-right"></div>
+            <iframe src="home.html" title="打卡首页" scrolling="no"></iframe>
+          </div>
+          <div class="page-label">
+            <div class="page-label-name">打卡首页</div>
+            <div class="page-label-desc">签到/签退 · 定位状态 · 今日记录</div>
+            <span class="page-label-badge badge-employee">员工端</span>
+          </div>
+        </div>
+
+        <!-- Attendance -->
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame">
+            <div class="dynamic-island"></div>
+            <div class="phone-btn-left"></div>
+            <div class="phone-btn-left-2"></div>
+            <div class="phone-btn-left-3"></div>
+            <div class="phone-btn-right"></div>
+            <iframe src="attendance.html" title="我的考勤" scrolling="no"></iframe>
+          </div>
+          <div class="page-label">
+            <div class="page-label-name">我的考勤</div>
+            <div class="page-label-desc">历史记录 · 月度统计 · 状态筛选</div>
+            <span class="page-label-badge badge-employee">员工端</span>
+          </div>
+        </div>
+
+        <!-- Profile -->
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame">
+            <div class="dynamic-island"></div>
+            <div class="phone-btn-left"></div>
+            <div class="phone-btn-left-2"></div>
+            <div class="phone-btn-left-3"></div>
+            <div class="phone-btn-right"></div>
+            <iframe src="profile.html" title="个人中心" scrolling="no"></iframe>
+          </div>
+          <div class="page-label">
+            <div class="page-label-name">个人中心</div>
+            <div class="page-label-desc">头像昵称 · 企业信息 · 人脸采集</div>
+            <span class="page-label-badge badge-employee">员工端</span>
+          </div>
+        </div>
+
+        <!-- Join Company -->
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame">
+            <div class="dynamic-island"></div>
+            <div class="phone-btn-left"></div>
+            <div class="phone-btn-left-2"></div>
+            <div class="phone-btn-left-3"></div>
+            <div class="phone-btn-right"></div>
+            <iframe src="join-company.html" title="加入企业" scrolling="no"></iframe>
+          </div>
+          <div class="page-label">
+            <div class="page-label-name">加入企业</div>
+            <div class="page-label-desc">邀请码加入 · 扫码加入</div>
+            <span class="page-label-badge badge-employee">员工端</span>
+          </div>
+        </div>
+
+        <!-- Create Company -->
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame">
+            <div class="dynamic-island"></div>
+            <div class="phone-btn-left"></div>
+            <div class="phone-btn-left-2"></div>
+            <div class="phone-btn-left-3"></div>
+            <div class="phone-btn-right"></div>
+            <iframe src="create-company.html" title="创建企业" scrolling="no"></iframe>
+          </div>
+          <div class="page-label">
+            <div class="page-label-name">创建企业</div>
+            <div class="page-label-desc">企业信息 · 考勤配置 · 上下班时间</div>
+            <span class="page-label-badge badge-employee">发起者</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== ADMIN SECTION ==================== -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon section-icon-admin">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="2" y="5" width="16" height="12" rx="2" stroke="white" stroke-width="1.8" fill="none"/>
+            <path d="M7 5V4C7 3 7.9 2 9 2H11C12.1 2 13 3 13 4V5" stroke="white" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M2 10H18" stroke="white" stroke-width="1.4"/>
+            <circle cx="10" cy="10" r="2" fill="white"/>
+          </svg>
+        </div>
+        <div>
+          <div class="section-name">管理端页面</div>
+          <div class="section-desc">企业管理员专属功能，包括出勤总览、员工管理、考勤审核、企业配置</div>
+        </div>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="page-grid">
+
+        <!-- Admin Home -->
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame">
+            <div class="dynamic-island"></div>
+            <div class="phone-btn-left"></div>
+            <div class="phone-btn-left-2"></div>
+            <div class="phone-btn-left-3"></div>
+            <div class="phone-btn-right"></div>
+            <iframe src="admin-home.html" title="管理首页" scrolling="no"></iframe>
+          </div>
+          <div class="page-label">
+            <div class="page-label-name">管理首页</div>
+            <div class="page-label-desc">今日出勤总览 · 异常提醒 · 实时状态</div>
+            <span class="page-label-badge badge-admin">管理端</span>
+          </div>
+        </div>
+
+        <!-- Admin Members -->
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame">
+            <div class="dynamic-island"></div>
+            <div class="phone-btn-left"></div>
+            <div class="phone-btn-left-2"></div>
+            <div class="phone-btn-left-3"></div>
+            <div class="phone-btn-right"></div>
+            <iframe src="admin-members.html" title="员工管理" scrolling="no"></iframe>
+          </div>
+          <div class="page-label">
+            <div class="page-label-name">员工管理</div>
+            <div class="page-label-desc">成员列表 · 角色设置 · 邀请员工</div>
+            <span class="page-label-badge badge-admin">管理端</span>
+          </div>
+        </div>
+
+        <!-- Admin Attendance -->
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame">
+            <div class="dynamic-island"></div>
+            <div class="phone-btn-left"></div>
+            <div class="phone-btn-left-2"></div>
+            <div class="phone-btn-left-3"></div>
+            <div class="phone-btn-right"></div>
+            <iframe src="admin-attendance.html" title="考勤总览" scrolling="no"></iframe>
+          </div>
+          <div class="page-label">
+            <div class="page-label-name">考勤总览</div>
+            <div class="page-label-desc">全员考勤列表 · 日期/状态筛选</div>
+            <span class="page-label-badge badge-admin">管理端</span>
+          </div>
+        </div>
+
+        <!-- Admin Attendance Detail -->
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame">
+            <div class="dynamic-island"></div>
+            <div class="phone-btn-left"></div>
+            <div class="phone-btn-left-2"></div>
+            <div class="phone-btn-left-3"></div>
+            <div class="phone-btn-right"></div>
+            <iframe src="admin-attendance-detail.html" title="员工考勤详情" scrolling="no"></iframe>
+          </div>
+          <div class="page-label">
+            <div class="page-label-name">员工考勤详情</div>
+            <div class="page-label-desc">个人打卡时间线 · 月度统计分析</div>
+            <span class="page-label-badge badge-admin">管理端</span>
+          </div>
+        </div>
+
+        <!-- Admin Settings -->
+        <div class="phone-frame-wrapper">
+          <div class="phone-frame">
+            <div class="dynamic-island"></div>
+            <div class="phone-btn-left"></div>
+            <div class="phone-btn-left-2"></div>
+            <div class="phone-btn-left-3"></div>
+            <div class="phone-btn-right"></div>
+            <iframe src="admin-settings.html" title="企业设置" scrolling="no"></iframe>
+          </div>
+          <div class="page-label">
+            <div class="page-label-name">企业设置</div>
+            <div class="page-label-desc">打卡地点 · 上下班时间 · 邀请码</div>
+            <span class="page-label-badge badge-admin">管理端</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p style="margin:0 0 6px;">企业员工考勤微信小程序 · 原型图 V1.0 · 2026-02-26</p>
+      <p style="margin:0;opacity:0.6;">基于 TDesign 设计规范 · iPhone 15 Pro (393×852pt) 规格 · HTML + Tailwind CSS</p>
+    </footer>
+
+  </main>
+</body>
+</html>

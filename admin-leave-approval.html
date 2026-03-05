@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>请假审批</title>
+  <style>
+    :root { --brand: #0052D9; --bg: #F3F3F3; --card: #fff; --text1: #0D0D0D; --text2: #4B4B4B; --text3: #9A9A9A; --border: #E7E7E7; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; font-family: -apple-system, 'PingFang SC', sans-serif; background: var(--bg); width: 393px; min-height: 852px; }
+    .navbar { height: 44px; background: var(--brand); color: #fff; display: flex; align-items: center; padding: 0 16px; font-size: 17px; font-weight: 600; }
+    .scroll { padding: 16px; }
+    .item { background: var(--card); border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+    .item-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .item-name { font-size: 16px; font-weight: 600; color: var(--text1); }
+    .item-range { font-size: 13px; color: var(--text3); }
+    .item-meta { font-size: 14px; color: var(--text2); margin-bottom: 12px; }
+    .item-actions { display: flex; gap: 10px; }
+    .btn { padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; border: none; }
+    .btn-primary { background: var(--brand); color: #fff; }
+    .btn-default { background: #f0f0f0; color: var(--text2); }
+  </style>
+</head>
+<body>
+  <div class="navbar"><span style="margin-right:8px">←</span> 请假审批</div>
+  <div class="scroll">
+    <div class="item">
+      <div class="item-head"><span class="item-name">张三</span><span class="item-range">2026-02-20 至 2026-02-21</span></div>
+      <div class="item-meta">全天 · 原因：事假</div>
+      <div class="item-actions"><button class="btn btn-primary">通过</button><button class="btn btn-default">拒绝</button></div>
+    </div>
+    <div class="item">
+      <div class="item-head"><span class="item-name">李四</span><span class="item-range">2026-02-22 至 2026-02-22</span></div>
+      <div class="item-meta">上午 · 原因：病假</div>
+      <div class="item-actions"><button class="btn btn-primary">通过</button><button class="btn btn-default">拒绝</button></div>
+    </div>
+  </div>
+</body>
+</html>

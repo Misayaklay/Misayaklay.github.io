@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>考勤总览</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --td-brand: #0052D9;
+      --td-success: #00A870;
+      --td-warning: #ED7B2F;
+      --td-error: #E34D59;
+      --td-bg-page: #F3F3F3;
+      --td-bg-card: #FFFFFF;
+      --td-text-1: #0D0D0D;
+      --td-text-2: #4B4B4B;
+      --td-text-3: #9A9A9A;
+      --td-border: #E7E7E7;
+    }
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    body {
+      margin: 0; padding: 0;
+      font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
+      background: var(--td-bg-page);
+      height: 852px; width: 393px;
+      overflow: hidden;
+    }
+    .status-bar { height: 44px; background: white; display: flex; align-items: center; padding: 0 20px; justify-content: space-between; }
+    .nav-bar { height: 44px; background: white; display: flex; align-items: center; padding: 0 16px; border-bottom: 1px solid var(--td-border); }
+    .tab-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 83px; background: var(--td-bg-card); border-top: 1px solid var(--td-border); display: flex; padding-bottom: 26px; }
+    .tab-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 4px; gap: 3px; }
+    .tab-label { font-size: 10px; color: var(--td-text-3); }
+    .tab-label.active { color: var(--td-brand); }
+    .tag { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; }
+    .filter-chip { padding:5px 12px;border-radius:16px;font-size:12px;border:1px solid var(--td-border);color:var(--td-text-2);background:var(--td-bg-card); }
+    .filter-chip.active { background:#E8F0FD;color:var(--td-brand);border-color:var(--td-brand); }
+  </style>
+</head>
+<body>
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span style="font-size:15px;font-weight:600;color:var(--td-text-1);">9:41</span>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#0D0D0D"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#0D0D0D"/><rect x="9" y="0.5" width="3" height="11.5" rx="1" fill="#0D0D0D"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#0D0D0D"/></svg>
+      <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#0D0D0D" stroke-opacity="0.35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#0D0D0D"/></svg>
+    </div>
+  </div>
+
+  <!-- Nav Bar -->
+  <div class="nav-bar">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 6L9 12L15 18" stroke="#0052D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span style="font-size:17px;font-weight:600;color:var(--td-text-1);flex:1;text-align:center;">考勤总览</span>
+    <div style="width:32px;height:32px;border-radius:8px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16 13V15C16 15.6 15.6 16 15 16H3C2.4 16 2 15.6 2 15V13" stroke="#4B4B4B" stroke-width="1.6" stroke-linecap="round"/><path d="M9 2V12M6 9L9 12L12 9" stroke="#4B4B4B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+
+  <!-- Scrollable Content -->
+  <div style="overflow-y:auto;height:calc(852px - 44px - 44px - 83px);">
+
+    <!-- Date & Filter Bar -->
+    <div style="background:var(--td-bg-card);padding:12px 16px;border-bottom:1px solid var(--td-border);">
+      <!-- Date Picker -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:6px;background:#F5F5F5;padding:7px 12px;border-radius:8px;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="2.5" width="13" height="12" rx="1.5" stroke="#4B4B4B" stroke-width="1.5" fill="none"/><path d="M5 1V4M11 1V4M1.5 7H14.5" stroke="#4B4B4B" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span style="font-size:13px;font-weight:500;color:var(--td-text-1);">2026-02-26</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 6L7 9L10 6" stroke="#9A9A9A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <div style="background:#F5F5F5;padding:7px 10px;border-radius:8px;font-size:13px;color:var(--td-text-2);">按天</div>
+          <div style="background:#E8F0FD;padding:7px 10px;border-radius:8px;font-size:13px;color:var(--td-brand);font-weight:500;">按周</div>
+          <div style="background:#F5F5F5;padding:7px 10px;border-radius:8px;font-size:13px;color:var(--td-text-2);">按月</div>
+        </div>
+      </div>
+      <!-- Status Filter -->
+      <div style="display:flex;gap:6px;overflow-x:auto;">
+        <span class="filter-chip active">全部</span>
+        <span class="filter-chip">正常</span>
+        <span class="filter-chip">迟到</span>
+        <span class="filter-chip">早退</span>
+        <span class="filter-chip">缺卡</span>
+        <span class="filter-chip">超范围</span>
+      </div>
+    </div>
+
+    <!-- Summary Bar -->
+    <div style="background:var(--td-bg-card);border-bottom:1px solid var(--td-border);padding:10px 16px;display:flex;gap:0;">
+      <div style="flex:1;text-align:center;border-right:1px solid var(--td-border);">
+        <div style="font-size:18px;font-weight:700;color:var(--td-text-1);">42</div>
+        <div style="font-size:11px;color:var(--td-text-3);margin-top:1px;">总人数</div>
+      </div>
+      <div style="flex:1;text-align:center;border-right:1px solid var(--td-border);">
+        <div style="font-size:18px;font-weight:700;color:var(--td-success);">35</div>
+        <div style="font-size:11px;color:var(--td-text-3);margin-top:1px;">已签到</div>
+      </div>
+      <div style="flex:1;text-align:center;border-right:1px solid var(--td-border);">
+        <div style="font-size:18px;font-weight:700;color:var(--td-warning);">4</div>
+        <div style="font-size:11px;color:var(--td-text-3);margin-top:1px;">异常</div>
+      </div>
+      <div style="flex:1;text-align:center;">
+        <div style="font-size:18px;font-weight:700;color:var(--td-error);">3</div>
+        <div style="font-size:11px;color:var(--td-text-3);margin-top:1px;">未到</div>
+      </div>
+    </div>
+
+    <!-- Table Header -->
+    <div style="background:#F8F9FA;padding:8px 16px;display:flex;align-items:center;border-bottom:1px solid var(--td-border);">
+      <span style="font-size:12px;color:var(--td-text-3);flex:2;">员工</span>
+      <span style="font-size:12px;color:var(--td-text-3);flex:1.5;text-align:center;">签到时间</span>
+      <span style="font-size:12px;color:var(--td-text-3);flex:1.5;text-align:center;">签退时间</span>
+      <span style="font-size:12px;color:var(--td-text-3);flex:1;text-align:right;">状态</span>
+    </div>
+
+    <!-- Attendance Rows -->
+    <div style="background:var(--td-bg-card);">
+      
+      <div style="display:flex;align-items:center;padding:11px 16px;border-bottom:1px solid var(--td-border);">
+        <div style="flex:2;display:flex;align-items:center;gap:8px;">
+          <div style="width:32px;height:32px;border-radius:16px;background:#D1F5E8;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#00A870;">张</div>
+          <span style="font-size:13px;color:var(--td-text-1);">张三</span>
+        </div>
+        <span style="flex:1.5;text-align:center;font-size:13px;color:var(--td-text-1);">09:02</span>
+        <span style="flex:1.5;text-align:center;font-size:13px;color:var(--td-text-3);">--</span>
+        <div style="flex:1;text-align:right;"><span class="tag" style="background:#E8F7F2;color:#00A870;">正常</span></div>
+      </div>
+
+      <div style="display:flex;align-items:center;padding:11px 16px;border-bottom:1px solid var(--td-border);">
+        <div style="flex:2;display:flex;align-items:center;gap:8px;">
+          <div style="width:32px;height:32px;border-radius:16px;background:#FFE4D1;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#ED7B2F;">李</div>
+          <span style="font-size:13px;color:var(--td-text-1);">李四</span>
+        </div>
+        <span style="flex:1.5;text-align:center;font-size:13px;color:var(--td-warning);">09:22</span>
+        <span style="flex:1.5;text-align:center;font-size:13px;color:var(--td-text-3);">--</span>
+        <div style="flex:1;text-align:right;"><span class="tag" style="background:#FEF0E1;color:#ED7B2F;">迟到</span></div>
+      </div>
+
+      <div style="display:flex;align-items:center;padding:11px 16px;border-bottom:1px solid var(--td-border);">
+        <div style="flex:2;display:flex;align-items:center;gap:8px;">
+          <div style="width:32px;height:32px;border-radius:16px;background:#D1F5E8;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#00A870;">王</div>
+          <span style="font-size:13px;color:var(--td-text-1);">王五</span>
+        </div>
+        <span style="flex:1.5;text-align:center;font-size:13px;color:var(--td-text-1);">08:58</span>
+        <span style="flex:1.5;text-align:center;font-size:13px;color:var(--td-text-3);">--</span>
+        <div style="flex:1;text-align:right;"><span class="tag" style="background:#E8F7F2;color:#00A870;">正常</span></div>
+      </div>
+
+      <div style="display:flex;align-items:center;padding:11px 16px;border-bottom:1px solid var(--td-border);">
+        <div style="flex:2;display:flex;align-items:center;gap:8px;">
+          <div style="width:32px;height:32px;border-radius:16px;background:#FDEAEA;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#E34D59;">赵</div>
+          <span style="font-size:13px;color:var(--td-text-1);">赵六</span>
+        </div>
+        <span style="flex:1.5;text-align:center;font-size:13px;color:var(--td-text-3);">--</span>
+        <span style="flex:1.5;text-align:center;font-size:13px;color:var(--td-text-3);">--</span>
+        <div style="flex:1;text-align:right;"><span class="tag" style="background:#FDECEE;color:#E34D59;">缺卡</span></div>
+      </div>
+
+      <div style="display:flex;align-items:center;padding:11px 16px;border-bottom:1px solid var(--td-border);">
+        <div style="flex:2;display:flex;align-items:center;gap:8px;">
+          <div style="width:32px;height:32px;border-radius:16px;background:#D1E3FF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#0052D9;">孙</div>
+          <span style="font-size:13px;color:var(--td-text-1);">孙七</span>
+        </div>
+        <span style="flex:1.5;text-align:center;font-size:13px;color:var(--td-text-1);">09:01</span>
+        <span style="flex:1.5;text-align:center;font-size:13px;color:var(--td-text-3);">--</span>
+        <div style="flex:1;text-align:right;"><span class="tag" style="background:#E8F7F2;color:#00A870;">正常</span></div>
+      </div>
+
+      <div style="display:flex;align-items:center;padding:11px 16px;border-bottom:1px solid var(--td-border);">
+        <div style="flex:2;display:flex;align-items:center;gap:8px;">
+          <div style="width:32px;height:32px;border-radius:16px;background:#E8E8E8;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#9A9A9A;">周</div>
+          <span style="font-size:13px;color:var(--td-text-1);">周八</span>
+        </div>
+        <span style="flex:1.5;text-align:center;font-size:13px;color:var(--td-warning);">09:35</span>
+        <span style="flex:1.5;text-align:center;font-size:13px;color:var(--td-text-3);">--</span>
+        <div style="flex:1;text-align:right;"><span class="tag" style="background:#FEF0E1;color:#ED7B2F;">迟到</span></div>
+      </div>
+
+      <div style="display:flex;align-items:center;padding:11px 16px;">
+        <div style="flex:2;display:flex;align-items:center;gap:8px;">
+          <div style="width:32px;height:32px;border-radius:16px;background:#D1F5E8;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#00A870;">吴</div>
+          <span style="font-size:13px;color:var(--td-text-1);">吴九</span>
+        </div>
+        <span style="flex:1.5;text-align:center;font-size:13px;color:var(--td-text-1);">08:50</span>
+        <span style="flex:1.5;text-align:center;font-size:13px;color:var(--td-text-3);">--</span>
+        <div style="flex:1;text-align:right;"><span class="tag" style="background:#E8F7F2;color:#00A870;">正常</span></div>
+      </div>
+    </div>
+
+    <div style="text-align:center;padding:12px;background:var(--td-bg-card);border-top:1px solid var(--td-border);">
+      <span style="font-size:13px;color:var(--td-brand);">加载更多 (共42条)</span>
+    </div>
+    <div style="height:16px;"></div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <div class="tab-item">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 9L12 3L21 9V20C21 20.6 20.6 21 20 21H15V15H9V21H4C3.4 21 3 20.6 3 20V9Z" stroke="#9A9A9A" stroke-width="1.8" fill="none"/></svg>
+      <span class="tab-label">首页</span>
+    </div>
+    <div class="tab-item">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M17 21V19C17 17.3 15.7 16 14 16H10C8.3 16 7 17.3 7 19V21" stroke="#9A9A9A" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="12" cy="9" r="4" stroke="#9A9A9A" stroke-width="1.8" fill="none"/></svg>
+      <span class="tab-label">员工管理</span>
+    </div>
+    <div class="tab-item">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" fill="#0052D9"/><path d="M8 2V6M16 2V6M3 10H21" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M7 14H10M14 14H17M7 17H10" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="tab-label active">考勤总览</span>
+    </div>
+    <div class="tab-item">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="#9A9A9A" stroke-width="1.8" fill="none"/><path d="M12 2V4M12 20V22M2 12H4M20 12H22" stroke="#9A9A9A" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="tab-label">企业设置</span>
+    </div>
+  </div>
+</body>
+</html>

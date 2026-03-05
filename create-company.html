@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>创建企业</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --td-brand: #0052D9;
+      --td-success: #00A870;
+      --td-warning: #ED7B2F;
+      --td-bg-page: #F3F3F3;
+      --td-bg-card: #FFFFFF;
+      --td-text-1: #0D0D0D;
+      --td-text-2: #4B4B4B;
+      --td-text-3: #9A9A9A;
+      --td-border: #E7E7E7;
+    }
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    body {
+      margin: 0; padding: 0;
+      font-family: -apple-system, 'PingFang SC', 'Helvetica Neue', sans-serif;
+      background: var(--td-bg-page);
+      height: 852px; width: 393px;
+      overflow: hidden;
+    }
+    .status-bar { height: 44px; background: white; display: flex; align-items: center; padding: 0 20px; justify-content: space-between; }
+    .nav-bar { height: 44px; background: white; display: flex; align-items: center; padding: 0 16px; border-bottom: 1px solid var(--td-border); }
+    .form-item { padding: 13px 0; border-bottom: 1px solid var(--td-border); display: flex; align-items: center; gap: 12px; }
+    .form-item:last-child { border-bottom: none; }
+    .form-label { font-size: 14px; color: var(--td-text-1); min-width: 80px; flex-shrink: 0; }
+    .form-label .required { color: #E34D59; margin-left: 2px; }
+    .form-input { flex: 1; font-size: 14px; color: var(--td-text-1); border: none; outline: none; background: transparent; text-align: right; }
+    .form-input::placeholder { color: var(--td-text-3); }
+    .form-group { background: var(--td-bg-card); border-radius: 10px; padding: 0 16px; margin-bottom: 12px; }
+    .section-title { font-size: 12px; color: var(--td-text-3); font-weight: 500; margin: 16px 0 8px; padding: 0 4px; }
+  </style>
+</head>
+<body>
+  <!-- Status Bar -->
+  <div class="status-bar">
+    <span style="font-size:15px;font-weight:600;color:var(--td-text-1);">9:41</span>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#0D0D0D"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#0D0D0D"/><rect x="9" y="0.5" width="3" height="11.5" rx="1" fill="#0D0D0D"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#0D0D0D"/></svg>
+      <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#0D0D0D" stroke-opacity="0.35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#0D0D0D"/></svg>
+    </div>
+  </div>
+
+  <!-- Nav Bar -->
+  <div class="nav-bar">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M15 6L9 12L15 18" stroke="#0052D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span style="font-size:17px;font-weight:600;color:var(--td-text-1);flex:1;text-align:center;">创建企业</span>
+    <div style="width:24px;"></div>
+  </div>
+
+  <!-- Scrollable Content -->
+  <div style="overflow-y:auto;height:calc(852px - 44px - 44px);padding:4px 16px 16px;">
+
+    <!-- Step Indicator -->
+    <div style="display:flex;align-items:center;justify-content:center;padding:16px 0 12px;gap:0;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <div style="width:28px;height:28px;border-radius:14px;background:var(--td-brand);display:flex;align-items:center;justify-content:center;">
+          <span style="color:white;font-size:13px;font-weight:600;">1</span>
+        </div>
+        <span style="font-size:11px;color:var(--td-brand);font-weight:500;">企业信息</span>
+      </div>
+      <div style="width:40px;height:2px;background:var(--td-brand);margin:0 4px;margin-bottom:18px;"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <div style="width:28px;height:28px;border-radius:14px;background:var(--td-brand);display:flex;align-items:center;justify-content:center;">
+          <span style="color:white;font-size:13px;font-weight:600;">2</span>
+        </div>
+        <span style="font-size:11px;color:var(--td-brand);font-weight:500;">考勤设置</span>
+      </div>
+      <div style="width:40px;height:2px;background:var(--td-border);margin:0 4px;margin-bottom:18px;"></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <div style="width:28px;height:28px;border-radius:14px;background:var(--td-border);display:flex;align-items:center;justify-content:center;">
+          <span style="color:var(--td-text-3);font-size:13px;font-weight:600;">3</span>
+        </div>
+        <span style="font-size:11px;color:var(--td-text-3);">完成</span>
+      </div>
+    </div>
+
+    <!-- Section: Basic Info -->
+    <div class="section-title">基本信息</div>
+    <div class="form-group">
+      <div class="form-item">
+        <span class="form-label">企业名称<span class="required">*</span></span>
+        <input class="form-input" type="text" value="极科技有限公司" placeholder="请输入企业名称"/>
+      </div>
+      <div class="form-item">
+        <span class="form-label">企业简称</span>
+        <input class="form-input" type="text" placeholder="选填，用于列表展示"/>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="#9A9A9A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="form-item">
+        <span class="form-label">企业地址</span>
+        <input class="form-input" type="text" placeholder="选填"/>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="#9A9A9A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+
+    <!-- Section: Attendance Config -->
+    <div class="section-title">考勤配置</div>
+    <div class="form-group">
+      <div class="form-item">
+        <span class="form-label">打卡地点<span class="required">*</span></span>
+        <input class="form-input" type="text" value="张江高科技园区" placeholder="请输入打卡地点名称"/>
+      </div>
+      <div class="form-item">
+        <span class="form-label">打卡坐标<span class="required">*</span></span>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
+          <span style="font-size:12px;color:var(--td-text-3);">31.2024, 121.6104</span>
+          <span style="font-size:11px;color:var(--td-brand);">重新选择</span>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="#9A9A9A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="form-item">
+        <span class="form-label">打卡半径<span class="required">*</span></span>
+        <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
+          <input type="range" min="50" max="500" value="200" style="width:100px;accent-color:var(--td-brand);"/>
+          <span style="font-size:14px;color:var(--td-text-1);min-width:50px;text-align:right;font-weight:500;">200 米</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Work Hours -->
+    <div class="section-title">上下班时间</div>
+    <div class="form-group">
+      <div class="form-item">
+        <span class="form-label">上班时间<span class="required">*</span></span>
+        <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
+          <div style="background:#E8F0FD;border-radius:6px;padding:5px 12px;font-size:15px;font-weight:600;color:var(--td-brand);">09:00</div>
+        </div>
+      </div>
+      <div class="form-item">
+        <span class="form-label">下班时间<span class="required">*</span></span>
+        <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
+          <div style="background:#E8F0FD;border-radius:6px;padding:5px 12px;font-size:15px;font-weight:600;color:var(--td-brand);">18:00</div>
+        </div>
+      </div>
+      <div class="form-item">
+        <span class="form-label">迟到宽限<span class="required">*</span></span>
+        <div style="display:flex;align-items:center;gap:8px;margin-left:auto;">
+          <div style="background:#E8F0FD;border-radius:6px;padding:5px 12px;font-size:15px;font-weight:600;color:var(--td-brand);">10 分钟</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div style="padding:8px 0 24px;">
+      <button style="width:100%;background:var(--td-brand);color:white;border:none;border-radius:10px;padding:15px;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(0,82,217,0.3);">下一步：考勤设置</button>
+    </div>
+  </div>
+</body>
+</html>
